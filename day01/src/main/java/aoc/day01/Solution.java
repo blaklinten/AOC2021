@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class Solution {
 
   public void solve(String input) {
-    List<Integer> numbers = new ArrayList<Integer>();
+    List<Integer> numbers = new ArrayList<>();
     try {
       numbers = Files.lines(Path.of(input)).map(Integer::parseInt).collect(Collectors.toList());
     } catch (IOException e) {
@@ -29,14 +29,16 @@ public class Solution {
 
   private void part1(List<Integer> input) {
     System.out.println("part1");
-    Integer total = 0;
-    for (int i = 0; i < input.size(); i++) {
-      Integer num = input.get(i);
-      if (isPrime(num)) {
-        total += num * i;
+    Integer previous = input.get(0);
+    Integer count = 0;
+    for (int i = 1; i < input.size(); i++) {
+      Integer current = input.get(i);
+      if (current > previous) {
+        count++;
       }
+      previous = current;
     }
-    System.out.println(total);
+    System.out.println(count);
   }
 
   private boolean isPrime(int i) {
@@ -67,7 +69,7 @@ public class Solution {
     return !isPrime(i);
   }
 
-  public static void main(String args[]) {
+  public static void main(String[] args) {
     Solution solution = new Solution();
     solution.solve("input.txt");
   }
