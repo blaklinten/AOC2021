@@ -1,34 +1,23 @@
 #!/bin/bash
 
-is_prime()
+INPUT="input.txt"
+TEST="test_input.txt"
+is_current_bigger()
 {
-    half=$(($1 / 2))
-    i=2
-
-    while [ "$i" -le "$half" ]; do
-        [ "$(($1 % $i))" = 0 ] && return 0
-        i=$((i + 1))
-    done
-    return 1
-}
-
-is_not_prime()
-{
-    is_prime $1
-    [ "$?" = 0 ] && return 1; return 0
+    [ "$1" -gt "$2" ] && echo "yes" || echo "no"
 }
 
 part_1()
 {
     echo "Part 1"
-    index=0
-    total=0
+    previous="$(head -n1 $1)"
 
     while IFS= read -r number || [ -n "$number" ]; do
-        is_prime "$number"
-        [ "$?" = 1 ] && total=$((total + (number * index)))
-        index=$((index + 1))
-    done < "input.txt"
+        [ "$(is_current_bigger $number $previous)" = "yes" ] && {
+            total=$((total + 1))
+        }
+        previous="$number"
+    done < "$1"
     echo "$total"
 }
 
@@ -45,12 +34,12 @@ part_2()
         fi
 
         index="$((index + 1))"
-    done < "input.txt"
+    done < "$1"
     echo "$total"
 }
 
 solve()
 {
-    [ "$part" = "part1" ] && part_1 || part_2
+    [ "$part" = "part1" ] && part_1 "$1" || part_2 "$1"
 }
- solve
+ solve "$INPUT"
