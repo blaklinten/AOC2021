@@ -47,18 +47,23 @@ public class Solution {
 
   private void part2(List<Integer> input) {
     System.out.println("part2");
-    Integer total = 0;
-    for (int i = 0; i < input.size(); i++) {
-      Integer num = input.get(i);
-      if (isNotPrime(num)) {
-        if (isEven(i)) {
-          total += num;
-        } else {
-          total -= num;
-        }
+    final int START_INDEX = 2;
+    Integer previous = getWindow(input, START_INDEX);
+    Integer count = 0;
+    for (int i = START_INDEX; i < input.size(); i++) {
+      Integer current = getWindow(input, i);
+      if ( current > previous) {
+        count++;
       }
+      previous = current;
     }
-    System.out.println(total);
+    System.out.println(count);
+  }
+
+  private Integer getWindow(List<Integer> input, int index){
+    return input.get(index - 2) +
+            input.get(index - 1) +
+            input.get(index);
   }
 
   private boolean isEven(int i) {
