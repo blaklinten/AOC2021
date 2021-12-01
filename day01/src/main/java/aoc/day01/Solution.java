@@ -1,7 +1,5 @@
 package aoc.day01;
 
-import org.apache.commons.math3.primes.Primes;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -41,10 +39,6 @@ public class Solution {
     System.out.println(count);
   }
 
-  private boolean isPrime(int i) {
-    return Primes.isPrime(i);
-  }
-
   private void part2(List<Integer> input) {
     System.out.println("part2");
     final int START_INDEX = 2;
@@ -64,14 +58,6 @@ public class Solution {
     return input.get(index - 2) +
             input.get(index - 1) +
             input.get(index);
-  }
-
-  private boolean isEven(int i) {
-    return i % 2 == 0;
-  }
-
-  private boolean isNotPrime(int i) {
-    return !isPrime(i);
   }
 
   public static void main(String[] args) {
