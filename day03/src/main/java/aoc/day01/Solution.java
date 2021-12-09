@@ -87,8 +87,8 @@ public class Solution {
   void part2(List<String> input) {
     System.out.println("part2");
     List<char[]> binaryNumbers = toBinary(input);
-    String oxygenRating = new String (getRating(binaryNumbers, true));
-    String co2Rating = new String (getRating(binaryNumbers, false));
+    String oxygenRating = new String(getRating(binaryNumbers, true));
+    String co2Rating = new String(getRating(binaryNumbers, false));
     int oxygenRatingInDecimal = Integer.parseInt(oxygenRating, 2);
     int co2RatingInDecimal = Integer.parseInt(co2Rating, 2);
     System.out.println(oxygenRatingInDecimal * co2RatingInDecimal);
@@ -100,7 +100,7 @@ public class Solution {
     char wantedValue;
     while (input.size() > 1) {
       if (count[index] > 0) {
-         wantedValue = oxygen ? '1' : '0';
+        wantedValue = oxygen ? '1' : '0';
       } else if (count[index] < 0) {
         wantedValue = oxygen ? '0' : '1';
       } else {
