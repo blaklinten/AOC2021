@@ -27,7 +27,7 @@ class SolutionTest {
 
   @Test
   public void filterTest() {
-    List<String> res = solution.filter(testInput, 1, 1);
+    List<char[]> res = solution.filter(solution.toBinary(testInput), '1', 1);
     assertEquals(res.size(), 2);
     assertEquals(res.get(0), testInput.get(0));
     assertEquals(res.get(1), testInput.get(1));
@@ -35,13 +35,13 @@ class SolutionTest {
 
   @Test
   public void getRatingTest_oxygen(){
-    String oxygenResult = solution.getRating(solution.toBinary(testInput), oxygen);
+    char[] oxygenResult = solution.getRating(solution.toBinary(testInput), oxygen);
     assertEquals("11001", oxygenResult);
   }
 
   @Test
   public void getRatingTest_co2(){
-    String co2Result = solution.getRating(solution.toBinary(testInput), co2);
+    char[] co2Result = solution.getRating(solution.toBinary(testInput), co2);
     assertEquals("00011", co2Result);
   }
 }
