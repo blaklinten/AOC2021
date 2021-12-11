@@ -1,10 +1,9 @@
-package aoc.day01;
+package aoc.day03;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +11,11 @@ import java.util.stream.Collectors;
 public class Solution {
 
   static int BINARY_WIDTH;
+
+  public static void main(String[] args) {
+    Solution solution = new Solution();
+    solution.solve("input.txt");
+  }
 
   public void solve(String input) {
     isTest(input);
@@ -122,10 +126,5 @@ public class Solution {
       }
     }
     return filteredList;
-  }
-
-  public static void main(String[] args) {
-    Solution solution = new Solution();
-    solution.solve("input.txt");
   }
 }
