@@ -9,6 +9,11 @@ import java.util.stream.Collectors;
 
 public class Solution {
 
+  public static void main(String[] args) {
+    Solution solution = new Solution();
+    solution.solve("input.txt");
+  }
+
   public void solve(String input) {
     List<Integer> numbers = new ArrayList<>();
     try {
@@ -46,7 +51,7 @@ public class Solution {
     Integer count = 0;
     for (int i = START_INDEX; i < input.size(); i++) {
       Integer current = getWindow(input, i);
-      if ( current > previous) {
+      if (current > previous) {
         count++;
       }
       previous = current;
@@ -54,14 +59,7 @@ public class Solution {
     System.out.println(count);
   }
 
-  private Integer getWindow(List<Integer> input, int index){
-    return input.get(index - 2) +
-            input.get(index - 1) +
-            input.get(index);
-  }
-
-  public static void main(String[] args) {
-    Solution solution = new Solution();
-    solution.solve("input.txt");
+  private Integer getWindow(List<Integer> input, int index) {
+    return input.get(index - 2) + input.get(index - 1) + input.get(index);
   }
 }

@@ -2,7 +2,7 @@
 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   
-  <groupId>aoc.day01</groupId>
+  <groupId>aoc.day02</groupId>
   <artifactId>Solution</artifactId>
   <version>1.0-SNAPSHOT</version>
   
@@ -61,7 +61,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
             <configuration>  
               <archive>  
                 <manifest>  
-                  <mainClass>aoc.day01.Solution</mainClass>  
+                  <mainClass>aoc.day02.Solution</mainClass>  
                 </manifest>  
               </archive>  
             </configuration>  
@@ -71,7 +71,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
             <configuration>
               <archive>
                 <manifest>
-                  <mainClass>aoc.day01.Solution</mainClass>
+                  <mainClass>aoc.day02.Solution</mainClass>
                 </manifest>
               </archive>
               <descriptorRefs>
