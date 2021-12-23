@@ -13,7 +13,7 @@ SOURCE_DIR="$PWD/../$DAY_TO_COPY"
 
 pushd "$SOURCE_DIR" >/dev/null
 
-for item in src {test_,}input.txt pom.xml; do
+for item in .project src {test_,}input.txt pom.xml; do
     cp -r $item $TARGET_DIR
 done
  
