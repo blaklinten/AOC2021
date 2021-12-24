@@ -33,10 +33,14 @@ public class Solution {
 
   void part1(List<String> input) {
     System.out.println("part1");
+
     List<Line> strightLines = input.stream().map(this::getStraightLine).filter(line -> line != null).collect(Collectors.toList());
+
     Map<String, Integer> count = new HashMap<>();
     strightLines.stream().forEach(line -> addAllPoints(line, count));
+
     List<Map.Entry<String, Integer>> dangerousPoints = count.entrySet().stream().filter(entry -> entry.getValue() > 1).collect(Collectors.toList());
+
     System.out.println("Number of dangerous points: " + dangerousPoints.size());
   }
 
@@ -53,27 +57,57 @@ public class Solution {
   }
 
   Line getStraightLine(String line){
-      String[] points = line.split(" -> ");
-      String[] startCoordinates = points[0].split(",");
-      String[] endCoordinates = points[1].split(",");
-      Point start = new Point(Integer.parseInt(startCoordinates[0]), Integer.parseInt(startCoordinates[1]));
-      Point end = new Point(Integer.parseInt(endCoordinates[0]), Integer.parseInt(endCoordinates[1]));
+      Point[] endPoints = toEndPoints(line);
+      Point start = endPoints[0];
+      Point end = endPoints[1];
       if (Line.isStraight(start, end)){
           return new Line(start, end);
       }
       return null;
   }
 
+  Point[] toEndPoints(String line){
+      String[] points = line.split(" -> ");
+      String[] startCoordinates = points[0].split(",");
+      String[] endCoordinates = points[1].split(",");
+      Point start = new Point(Integer.parseInt(startCoordinates[0]), Integer.parseInt(startCoordinates[1]));
+      Point end = new Point(Integer.parseInt(endCoordinates[0]), Integer.parseInt(endCoordinates[1]));
+      return new Point[] {start, end};
+  }
+
   void part2(List<String> input) {
     System.out.println("part2");
+
+    List<Line> validLines = input.stream().map(this::getStraightOrDiagonalLine).filter(line -> line != null).collect(Collectors.toList());
+
+    Map<String, Integer> count = new HashMap<>();
+    validLines.stream().forEach(line -> addAllPoints(line, count));
+
+    List<Map.Entry<String, Integer>> dangerousPoints = count.entrySet().stream().filter(entry -> entry.getValue() > 1).collect(Collectors.toList());
+
+    System.out.println("Number of dangerous points: " + dangerousPoints.size());
+  }
+
+  Line getStraightOrDiagonalLine(String line){
+      Point[] endPoints = toEndPoints(line);
+      Point start = endPoints[0];
+      Point end = endPoints[1];
+      if (Line.isStraight(start, end) || Line.isDiagonal(start, end)){
+          return new Line(start, end);
+      }
+      return null;
   }
 
   static class Line {
       enum DIRECTION {
-          Xpos,
-          Xneg,
-          Ypos,
-          Yneg,
+          N,
+          NE,
+          E,
+          SE,
+          S,
+          SW,
+          W,
+          NW,
       }
 
       Point start;
@@ -90,20 +124,36 @@ public class Solution {
       }
 
 	  DIRECTION getDirection(){
-          if (start.x == end.x && start.y > end.y){
-              return DIRECTION.Yneg;
-          }
-
           if (start.x == end.x && start.y < end.y){
-              return DIRECTION.Ypos;
+              return DIRECTION.N;
           }
 
-          if (start.y == end.y && start.x < end.x){
-              return DIRECTION.Xpos;
+          if (start.x < end.x && start.y < end.y){
+              return DIRECTION.NE;
           }
 
-          if (start.y == end.y && start.x > end.x){
-              return DIRECTION.Xneg;
+          if (start.x < end.x && start.y == end.y){
+              return DIRECTION.E;
+          }
+
+          if (start.x < end.x && start.y > end.y){
+              return DIRECTION.SE;
+          }
+
+          if (start.x == end.x && start.y > end.y){
+              return DIRECTION.S;
+          }
+
+          if (start.x > end.x && start.y > end.y){
+              return DIRECTION.SW;
+          }
+
+          if (start.x > end.x && start.y == end.y){
+              return DIRECTION.W;
+          }
+
+          if (start.x > end.x && start.y < end.y){
+              return DIRECTION.NW;
           }
 
           throw new RuntimeException("DIRECTION can not be determined, probably not a straight line.");
@@ -122,16 +172,24 @@ public class Solution {
 
       private Point getNextPointInDirection(Point current, DIRECTION direction) {
           switch(direction) {
-              case Xpos: return new Point(current.x + 1, current.y);
-              case Xneg: return new Point(current.x - 1, current.y);
-              case Ypos: return new Point(current.x, current.y + 1);
-              case Yneg: return new Point(current.x, current.y - 1);
+              case N: return new Point(current.x, current.y + 1);
+              case NE: return new Point(current.x + 1, current.y + 1);
+              case E: return new Point(current.x + 1, current.y);
+              case SE: return new Point(current.x + 1, current.y - 1);
+              case S: return new Point(current.x, current.y - 1);
+              case SW: return new Point(current.x - 1, current.y - 1);
+              case W: return new Point(current.x - 1, current.y);
+              case NW: return new Point(current.x - 1, current.y + 1);
               default: throw new RuntimeException("DIRECTION is invalid");
           }
 	}
 
     static boolean isStraight(Point start, Point end){
         return start.x == end.x || start.y == end.y;
+    }
+
+    static boolean isDiagonal(Point start, Point end){
+        return Math.abs(start.x - end.x) == Math.abs(start.y - end.y);
     }
 
     @Override
