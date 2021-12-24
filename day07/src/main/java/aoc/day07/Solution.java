@@ -3,19 +3,15 @@ package aoc.day07;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Solution {
 
   public static void main(String[] args) {
     Solution solution = new Solution();
-    solution.solve("input.txt");
+    solution.solve("test_input.txt");
   }
 
   void solve(String input) {
@@ -35,12 +31,14 @@ public class Solution {
   void part1(List<String> input) {
     System.out.println("part1");
 
-    List<Integer> sorted = input.stream().map(Integer::parseInt).sorted().collect(Collectors.toList());
+    List<Integer> sorted =
+        input.stream().map(Integer::parseInt).sorted().collect(Collectors.toList());
 
     int targetIndex = Math.floorDiv(sorted.size(), 2);
     Integer targetPosition = sorted.get(targetIndex);
 
-    int totalCost = sorted.stream().reduce(0, (acc, next) -> acc + (Math.abs(next - targetPosition)));
+    int totalCost =
+        sorted.stream().reduce(0, (acc, next) -> acc + (Math.abs(next - targetPosition)));
     System.out.println("Total cost is: " + totalCost);
   }
 
