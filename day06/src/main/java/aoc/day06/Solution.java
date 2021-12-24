@@ -1,12 +1,11 @@
 package aoc.day06;
 
-import org.apache.commons.math3.util.Pair;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
+import org.apache.commons.math3.util.Pair;
 
 public class Solution {
 
@@ -64,10 +63,10 @@ public class Solution {
     int numberOfDays = 256;
     long population = initialTTR.size();
     Map<Pair<Integer, Integer>, Long> table = getChildrenCache(numberOfDays);
-    for (Integer TTR : initialTTR ) {
+    for (Integer TTR : initialTTR) {
       Pair<Integer, Integer> cacheKey = new Pair<>(TTR, numberOfDays);
       Long children = table.get(cacheKey);
-        population = population + children;
+      population = population + children;
     }
     System.out.println("Final family size is " + population);
   }
