@@ -50,18 +50,19 @@ public class Solution {
     List<Integer> sorted =
         input.stream().map(Integer::parseInt).sorted().collect(Collectors.toList());
 
-    double meanValue = Math.ceil(sorted.stream().reduce(0, (acc, next) -> acc + next)/(double)sorted.size());
+    double meanValue =
+        Math.ceil(sorted.stream().reduce(0, (acc, next) -> acc + next) / (double) sorted.size());
 
     int totalCost =
         sorted.stream().reduce(0, (acc, next) -> acc + calculateCost(Math.abs(next - meanValue)));
     System.out.println("Total cost is: " + totalCost);
   }
 
-  int calculateCost(double steps){
-      int cost = 0;
-      for (int i = 1; i <= steps; i++){
-          cost = cost + i;
-      }
-      return cost;
+  int calculateCost(double steps) {
+    int cost = 0;
+    for (int i = 1; i <= steps; i++) {
+      cost = cost + i;
+    }
+    return cost;
   }
 }
